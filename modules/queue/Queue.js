@@ -1,23 +1,65 @@
+//SSL implementation
+class _Node {
+  constructor(value){
+      this.value = value
+      this.next = null
+  }
+}
+
 class Queue {
-  constructor() {
-    // Set initial data.
+  constructor(){
+      this.first = null
+      this.last = null
   }
+  enqueue(data){
+      const newNode = new _Node(data)
+      if (this.first === null ){
+          this.first = newNode
+      }
 
-  enqueue(data) {
-    // Add some data to the queue.
+      if (this.last) {
+          this.last.next = newNode
+      }
+
+      this.last = newNode
   }
+  dequeue(){
+      if (this.first === null) {
+          return
+      }
 
-  dequeue() {
-    // Remove some data from the queue.
+      const node = this.first
+      this.first = this.first.next
+
+      if (node === this.last){
+          this.last = null
+      }
+
+      return node.value
   }
 
   show() {
-    // Return the next item in the queue.
+    if (this.first == null) {
+      return;
+    }
+
+    return this.first.value;
   }
 
   all() {
-    // Return all items in the queue.
+    let vals = [];
+    if (this.first == null) {
+      return;
+    } else {
+      let curr = this.first;
+      while (curr) {
+        vals.push(curr.value);
+        curr = curr.next;
+      }
+    }
+    return vals;
   }
+
 }
 
 module.exports = Queue

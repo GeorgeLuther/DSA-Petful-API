@@ -1,3 +1,4 @@
+const { NODE_ENV } = require('../../config')
 const express = require('express')
 const cors = require('cors')
 
@@ -29,5 +30,16 @@ app.use('/api/dog', (req,res)=>{
 
 app.use('/people', require('../people/people.router'))
 app.use('/pets', require('../pets/pets.router'))
+
+app.use(function errorHandler(error, req, res, next) {
+  let response
+  if (NODE_ENV === 'production') {
+    response = { error: 'Server error' }
+  } else {
+    console.error(error)
+    response = { error: error.message, object: error }
+  }
+  res.status(500).json(response)
+})
 
 module.exports = app
