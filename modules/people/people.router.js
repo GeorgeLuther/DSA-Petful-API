@@ -16,12 +16,13 @@ router.post('/', json, (req, res) => {
   console.log(person)
   People.enqueue(person);
   const allPeople = People.get();
-  res.status(204).json(allPeople);
+  res.status(200).json(allPeople);
 });
 
 router.delete('/', json, (req, res) => {
   People.dequeue()
   const allPeople = People.get();
+  console.log(allPeople)
   return res.status(200).json(allPeople);
 })
 
